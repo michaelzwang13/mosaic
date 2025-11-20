@@ -1,0 +1,57 @@
+body {
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.shadow-hover {
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: $box-shadow-lg;
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: $primary;
+  color: white;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: darken($primary, 10%);
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

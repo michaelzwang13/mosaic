@@ -1,0 +1,60 @@
+<div class="editor-container">
+  <div class="editor-header">
+    <h1>Mosaic Editor</h1>
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+
+  <form method="POST" action="/editor" class="add-widget-form" id="add-widget-form">
+    <label for="widget-type">Widget Type:</label>
+    <select name="widget" id="widget-type" required>
+      <option value="">-- Select Widget Type --</option>
+      <option value="text">Text Block</option>
+      <option value="image">Image Block</option>
+      <option value="video">Video Embed</option>
+      <option value="recipe">Recipe</option>
+      <option value="quote">Quote</option>
+      <option value="link">Custom Link</option>
+    </select>
+    <button type="submit" class="btn">Add Widget</button>
+  </form>
+
+  <div class="grid-stack">
+    {{#each widgets}}
+    <div class="grid-stack-item"
+         data-widget-id="{{this._id}}"
+         data-widget-type="{{this.type}}"
+         gs-x="{{this.x}}"
+         gs-y="{{this.y}}"
+         gs-w="{{this.w}}"
+         gs-h="{{this.h}}">
+      <div class="grid-stack-item-content widget-{{this.type}}">
+        <button class="delete-btn" data-id="{{this._id}}">×</button>
+        {{#if (eq this.type "video")}}
+          {{#if this.data.videoId}}
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/{{this.data.videoId}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+          {{else}}
+            <p>{{this.description}}</p>
+          {{/if}}
+        {{else if (eq this.type "text")}}
+          {{#if this.data.content}}
+            <p>{{this.data.content}}</p>
+          {{else}}
+            <p>{{this.description}}</p>
+          {{/if}}
+        {{else if (eq this.type "image")}}
+          {{#if this.data.imageUrl}}
+            <img src="{{this.data.imageUrl}}" alt="Uploaded image" />
+          {{else}}
+            <p>{{this.description}}</p>
+          {{/if}}
+        {{else}}
+          <h3>{{this.title}}</h3>
+          <p>{{this.description}}</p>
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
